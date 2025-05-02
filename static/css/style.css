@@ -1,0 +1,292 @@
+:root {
+    --primary-blue: #007bff;
+    --dark-blue: #0056b3;
+    --black: #121212;
+    --dark-gray: #1e1e1e;
+    --light-gray: #2d2d2d;
+    --text-light: #f8f9fa;
+    --text-gray: #adb5bd;
+    --success: #28a745;
+    --warning: #ffc107;
+}
+
+body {
+    background-color: var(--black);
+    color: var(--text-light);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+}
+
+.container {
+    max-width: 1200px;
+    padding: 2rem;
+}
+
+.welcome-banner {
+    background: linear-gradient(135deg, var(--black), var(--dark-blue));
+    color: var(--text-light);
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.2);
+    border: 1px solid rgba(0, 123, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.welcome-banner:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 123, 255, 0.3);
+}
+
+.welcome-banner h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text-light), var(--primary-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+.welcome-banner p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.examples-container {
+    margin-bottom: 2rem;
+}
+
+.example-card {
+    background: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    border-radius: 0.8rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.example-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+    border-color: var(--primary-blue);
+}
+
+.example-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(0, 123, 255, 0.1), transparent);
+    transition: all 0.3s ease;
+}
+
+.example-card:hover::after {
+    transform: translateX(100%);
+}
+
+.example-card h3 {
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.example-card p {
+    color: var(--text-gray);
+    margin-bottom: 0;
+}
+
+.form-control {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    color: var(--text-light);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    min-height: 150px;
+    font-size: 1.1rem;
+}
+
+.form-control:focus {
+    background-color: var(--light-gray);
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    color: var(--text-light);
+}
+
+.form-control::placeholder {
+    color: var(--text-gray);
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.1rem;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover::after {
+    transform: translateX(100%);
+}
+
+.btn-outline-primary {
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+    background: transparent;
+    padding: 0.8rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.1rem;
+}
+
+.btn-outline-primary:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: var(--text-light);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+#resultsArea {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+#resultsArea h2 {
+    color: var(--primary-blue);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.result-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.result-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.result-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-light);
+}
+
+.result-section p,
+.result-section ul {
+    color: var(--text-gray);
+    line-height: 1.6;
+}
+
+.result-section ul {
+    padding-left: 1.5rem;
+}
+
+.result-section strong {
+    color: var(--text-light);
+}
+
+.evaluation-score {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.score-positive {
+    color: var(--success);
+}
+
+.score-neutral {
+    color: var(--warning);
+}
+
+.score-negative {
+    color: #dc3545; /* Bootstrap danger color */
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--primary-blue);
+}
+
+#loadingIndicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px; /* Adjust as needed */
+}
+
+.json-output {
+    background-color: var(--black);
+    border: 1px solid var(--light-gray);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--text-gray);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Animate.css integration */
+.animate__animated {
+    --animate-duration: 0.8s;
+}

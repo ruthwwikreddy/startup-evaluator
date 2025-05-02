@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Idea Evaluator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --dark-blue: #0056b3;
+            --black: #121212;
+            --dark-gray: #1e1e1e;
+            --light-gray: #2d2d2d;
+            --text-light: #f8f9fa;
+            --text-gray: #adb5bd;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--text-light);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            padding: 2rem;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--black), var(--dark-blue));
+            color: var(--text-light);
+            padding: 3rem;
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.2);
+            border: 1px solid rgba(0, 123, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .welcome-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 123, 255, 0.3);
+        }
+
+        .welcome-banner h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-light), var(--primary-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .welcome-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .examples-container {
+            margin-bottom: 2rem;
+        }
+
+        .example-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 0.8rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+            border-color: var(--primary-blue);
+        }
+
+        .example-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 123, 255, 0.1), transparent);
+            transition: all 0.3s ease;
+        }
+
+        .example-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .example-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-card p {
+            color: var(--text-gray);
+            margin-bottom: 0;
+        }
+
+        .form-control {
+            background-color: var(--dark-gray);
+            border: 1px solid var(--light-gray);
+            color: var(--text-light);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            min-height: 150px;
+            font-size: 1.1rem;
+        }
+
+        .form-control:focus {
+            background-color: var(--light-gray);
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            color: var(--text-light);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-gray);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover::after {
+            transform: translateX(100%);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            background: transparent;
+            padding: 0.8rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+        }
+
+        .btn-outline-primary:hover {
+            color: var(--text-light);
+            background-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .loading {
+            display: none;
+        }
+
+        .spinner-border {
+            color: var(--primary-blue);
+            width: 3rem;
+            height: 3rem;
+            border-width: 0.25em;
+        }
+
+        .results {
+            display: none;
+            background-color: var(--dark-gray);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--light-gray);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background-color: var(--light-gray);
+            border-radius: 0.8rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--light-gray);
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+            border-color: var(--primary-blue);
+        }
+
+        .section h3 {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            background-color: var(--dark-gray);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            color: var(--text-light);
+            border: 1px solid var(--light-gray);
+            font-family: 'Consolas', monospace;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .results h2 {
+            color: var(--text-light);
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 0;
+        }
+
+        .floating-label {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .floating-label label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .floating-label .form-control:focus + label,
+        .floating-label .form-control:not(:placeholder-shown) + label {
+            top: -1.5rem;
+            left: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--primary-blue);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .welcome-banner {
+                padding: 2rem;
+            }
+
+            .welcome-banner h1 {
+                font-size: 2rem;
+            }
+
+            .results {
+                padding: 1.5rem;
+            }
+
+            .section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="welcome-banner text-center animate__animated animate__fadeIn">
+            <h1>Startup Idea Evaluator</h1>
+            <p class="lead">AI-Powered Analysis for Your Startup Ideas</p>
+            <p>Get comprehensive evaluation of your startup idea using specialized AI models</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="examples-container">
+                    <h3 class="text-center mb-4">Example Ideas</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="example-card" onclick="fillExample(1)">
+                                <h3>AI-Powered Personal Chef</h3>
+                                <p>A mobile app that uses AI to create personalized meal plans and recipes based on dietary preferences, health goals, and available ingredients.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="example-card" onclick="fillExample(2)">
+                                <h3>Virtual Reality Fitness</h3>
+                                <p>An immersive VR fitness platform that transforms traditional workouts into engaging virtual experiences with gamification and social features.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="example-card" onclick="fillExample(3)">
+                                <h3>Sustainable Fashion Marketplace</h3>
+                                <p>An online marketplace connecting eco-conscious consumers with sustainable fashion brands, featuring a carbon footprint calculator for each purchase.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="example-card" onclick="fillExample(4)">
+                                <h3>Smart Home Energy Manager</h3>
+                                <p>An AI-powered system that optimizes home energy usage by learning household patterns and automatically adjusting smart devices for maximum efficiency.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="evaluationForm">
+                    <div class="floating-label">
+                        <textarea class="form-control" id="ideaText" rows="5" required 
+                            placeholder=" "></textarea>
+                        <label for="ideaText">Enter your startup idea</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Evaluate Idea</button>
+                </form>
+                
+                <div class="loading mt-4 text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Evaluating your idea...</p>
+                </div>
+                
+                <div class="results mt-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2>Results</h2>
+                        <div>
+                            <button class="btn btn-outline-primary me-2" onclick="saveResults('txt')">Save as TXT</button>
+                            <button class="btn btn-outline-primary" onclick="saveResults('pdf')">Save as PDF</button>
+                        </div>
+                    </div>
+                    
+                    <div id="resultsContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const examples = {
+            1: "A mobile app that uses AI to create personalized meal plans and recipes based on dietary preferences, health goals, and available ingredients. The app would analyze users' dietary restrictions, nutritional needs, and taste preferences to generate customized meal plans. It would also integrate with smart kitchen appliances and grocery delivery services to streamline the cooking process. The AI would learn from user feedback and adapt recommendations over time, creating increasingly personalized and effective meal plans.",
+            2: "An immersive VR fitness platform that transforms traditional workouts into engaging virtual experiences with gamification and social features. Users can join virtual classes, compete with friends, and explore exotic locations while exercising. The platform would track performance metrics and provide real-time feedback through haptic feedback and visual cues. It would also offer personalized workout programs and integrate with popular fitness trackers and smart equipment.",
+            3: "An online marketplace connecting eco-conscious consumers with sustainable fashion brands, featuring a carbon footprint calculator for each purchase. The platform would verify the sustainability claims of brands and provide transparent information about materials, manufacturing processes, and supply chains. Users could track their environmental impact and earn rewards for making sustainable choices. The marketplace would also include a resale section to promote circular fashion.",
+            4: "An AI-powered system that optimizes home energy usage by learning household patterns and automatically adjusting smart devices for maximum efficiency. The system would integrate with existing smart home devices and use machine learning to predict energy needs. It would provide real-time energy consumption data, suggest optimizations, and automatically adjust settings to reduce waste. The system would also offer insights into potential cost savings and environmental impact."
+        };
+
+        function fillExample(number) {
+            const textarea = document.getElementById('ideaText');
+            textarea.value = examples[number];
+            textarea.focus();
+            textarea.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.getElementById('evaluationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const ideaText = document.getElementById('ideaText').value;
+            const loading = document.querySelector('.loading');
+            const results = document.querySelector('.results');
+            
+            loading.style.display = 'block';
+            results.style.display = 'none';
+            
+            try {
+                const response = await fetch('/evaluate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        'idea_text': ideaText
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                displayResults(data.results);
+                loading.style.display = 'none';
+                results.style.display = 'block';
+                results.scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                alert('Error: ' + error.message);
+                loading.style.display = 'none';
+            }
+        });
+        
+        function displayResults(results) {
+            const container = document.getElementById('resultsContent');
+            container.innerHTML = '';
+            
+            // Store results for saving
+            window.currentResults = results;
+            
+            const sections = {
+                'swot': 'SWOT Analysis',
+                'revenue': 'Revenue Models',
+                'tech': 'Technical Stack',
+                'audience': 'Target Audience',
+                'validation': 'Validation Strategy'
+            };
+            
+            for (const [key, title] of Object.entries(sections)) {
+                const section = document.createElement('div');
+                section.className = 'section animate__animated animate__fadeIn';
+                section.style.animationDelay = `${Object.keys(sections).indexOf(key) * 0.1}s`;
+                
+                const heading = document.createElement('h3');
+                heading.textContent = title;
+                
+                const content = document.createElement('pre');
+                content.textContent = results[key];
+                
+                section.appendChild(heading);
+                section.appendChild(content);
+                container.appendChild(section);
+            }
+        }
+        
+        async function saveResults(format) {
+            const ideaText = document.getElementById('ideaText').value;
+            const results = window.currentResults;
+            
+            if (!ideaText) {
+                alert('Please enter a startup idea first');
+                return;
+            }
+            
+            if (!results) {
+                alert('Please evaluate an idea first');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        idea_text: ideaText,
+                        results: results,
+                        format: format
+                    })
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to save results');
+                }
+                
+                // Get the filename from the Content-Disposition header if available
+                let filename = `startup_evaluation_${new Date().toISOString().slice(0,10)}.${format}`;
+                const contentDisposition = response.headers.get('Content-Disposition');
+                if (contentDisposition) {
+                    const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(contentDisposition);
+                    if (matches != null && matches[1]) {
+                        filename = matches[1].replace(/['"]/g, '');
+                    }
+                }
+                
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                setTimeout(() => {
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                }, 100);
+            } catch (error) {
+                console.error('Error saving results:', error);
+                alert('Error saving results: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html> 
